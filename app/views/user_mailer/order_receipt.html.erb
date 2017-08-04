@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thank you for your order!</h1>
+    <p>
+      You have successfully placed and order for:
+    </p>
+    <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.line_items.each do |product_id| %>
+          <%= render 'item', product_id: product_id %>
+        <%end%>
+      </tbody> 
+      <tfoot>
+        <tr>
+          <th>
+            TOTAL:
+          </th>
+          <th>
+            <%= @order.total %>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div> 
+  </body>
+</html>
