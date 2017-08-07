@@ -22,14 +22,15 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
-          
         </dl>
+
+      <% if current_user %>
         <header class="form-header">
           <h5>New Review</h5> 
         </header> 
          <div class="row">
             <div class="col-sm-6 col-sm-offset-1">
-              <%= form_for [@product, @product.reviews.new] do |form| %>
+              <%= form_for [@product, Review.new] do |form| %>
 
                 <% if form.object.errors.any? %>
                   <div class="alert alert-danger">
@@ -55,23 +56,30 @@
                 <%= form.hidden_field :user_id, :value => @user.id %>
                 <%= form.hidden_field :product_id, :value => @product.id  %>
 
-                <%= form.submit 'Create New Review', class: 'btn btn-primary' %>
+                <%= form.submit 'Leave a Review', class: 'btn btn-primary' %>
               <% end %>
             </div>
         </div>
+      <%end%>
 
         <div class="col-sm-8">
           <div>Reviews</div>
           <dl class="dl-horizontal">
-              <% @product.reviews.each do |review| %> 
-                  <dt>Name</dt> 
-                  <dd><%= review.user_id %></dd>
-                  <dt>Description</dt>
-                  <dd><%= review.description %></dd>
-                  <dt>Rating</dt> 
-                  <dd> <%= review.rating %></dd> 
+            <% @product.reviews.reverse_each do |r| %> 
+              <dt>Name</dt> 
+              <dd><%= r.user.first_name%> <%= r.user.last_name %></dd>
+              <% if !(r.description=="") %>
+              <dt>Description</dt>
+              <dd><%= r.description %></dd>
+              <% end %>
+              <dt>Rating</dt> 
+              <dd> <%= r.rating %></dd> 
+              <% if current_user && current_user.id == r.user_id %>
+                <dt><dt>
+                <dd> <%= button_to "Delete Review", product_review_path(r.product_id, r.id), method: :delete, class: "btn btn-danger"%></dd> 
               <% end %> 
-            </dl>
+            <% end %> 
+          </dl>
         </div> 
       </div>
     </div>

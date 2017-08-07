@@ -1,8 +1,8 @@
 class ReviewsController < ApplicationController
+  before_action :authorize
 
   def create
     @product = Product.find params[:product_id]
-    # @user = current_user
     @review = @product.reviews.new(review_params)
 
      if @review.save
@@ -11,7 +11,13 @@ class ReviewsController < ApplicationController
       redirect_to :back
     end
   end
-  
+
+  def destroy
+    @review = Review.find params[:id]
+    @review.destroy
+    redirect_to :back , notice: 'Review deleted!'
+  end 
+
   private
 
   def review_params
@@ -22,4 +28,5 @@ class ReviewsController < ApplicationController
       :rating
     )
   end
-end
+
+  end
