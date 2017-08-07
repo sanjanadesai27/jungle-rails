@@ -153,19 +153,19 @@ user2 = User.create!({
 
 puts "Re-creating reviews..."
 
-Review.destroy_all
+# Review.destroy_all
 
-user1.reviews.create!({
-  product_id: 1,
-  description: "Its cool",
-  rating: 4
-})
+# user1.reviews.create!({
+#   product_id: 1,
+#   description: "Its cool",
+#   rating: 4
+# })
 
-user2.reviews.create!({
-  product_id: 4,
-  description: "It sucks",
-  rating: 1
-})
+# user2.reviews.create!({
+#   product_id: 4,
+#   description: "It sucks",
+#   rating: 1
+# })
 
 
 puts "DONE!"
