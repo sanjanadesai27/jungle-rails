@@ -43,6 +43,23 @@
             <%= fa_icon "shopping-cart" %> My Cart (<%= cart.size %>)
           <% end %>
         </li>
+        <% if !current_user %>
+        <li> 
+          <%= link_to new_session_path do %>
+            <button type="button" class="btn btn-default">Login</button> 
+          <% end %>
+        </li> 
+        <li>
+          <%= link_to new_user_path do %>
+            <button type="button" class="btn btn-default">Register</button>
+          <% end %>
+        </li>
+        <% else %> 
+          <li>Welcome, <%= current_user.email %></li>
+          <li>
+            <%= link_to 'Logout', session_path, method: :delete, class: "btn btn-default" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
