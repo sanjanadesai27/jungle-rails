@@ -59,3 +59,8 @@ group :production do
   gem 'newrelic_rpm'
   gem 'rails_12factor'
 end
+
+group :test do 
+  gem 'shoulda-matchers','~> 3.0', require:false
+  gem 'database_cleaner', '~> 1.5'
+end
